@@ -3,6 +3,7 @@ colorama==0.3.7
 crypto==1.4.1
 dj-database-url==0.4.0
 Django==1.9.2
+django-cors-headers==1.1.0
 gunicorn==19.4.5
 lazy-object-proxy==1.2.2
 Naked==0.1.31
