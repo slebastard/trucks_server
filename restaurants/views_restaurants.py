@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 
 from django.http import HttpResponse
@@ -26,7 +27,9 @@ def show_resto(request):
     resto1['disponibility']['saturday'].append({hour10: hour22})
     resto1['disponibility']['sunday'].append({hour10: hour22})
     resto1['tel'] = '+33705432543'
-    resto1['adress'] = 'adresse'
+    resto1['address'] = 'addresse'
+    resto1['description'] = 'Restaurant de sushis'
+    resto1['imageUrl'] = None
     dishes = []
     dishes.append({
         'id': 0,
@@ -39,6 +42,12 @@ def show_resto(request):
         'name': 'Plat 2',
         'description': 'description',
         'imageUrl': 'https://static.pexels.com/photos/5938/food-salad-healthy-lunch.jpg'
+    })
+    dishes.append({
+        'id': 1,
+        'name': 'Plat 2',
+        'description': 'description',
+        'imageUrl': None
     })
     resto1['dishes'] = dishes
     response_data = {"data": [resto1]}
