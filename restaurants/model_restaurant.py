@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from .currencies import *
 
 WEEK_DAYS = (
         (0, 'monday'),
@@ -31,6 +32,12 @@ class Dish(models.Model):
                             blank=True)
     description = models.CharField(max_length=1000,
                             blank=True)
+    # Pour la gestion des prix avec le module py-moneyed
+    prix = models.FloatField(verbose_name="prix",
+                            null=True, blank=True)
+    devise = models.CharField(max_length=10,
+                            choices=CURRENCIES,
+                            default="EUR")
     def to_dict(self):
         fields = [
             'id',
@@ -53,6 +60,10 @@ class Restaurant(models.Model):
                             blank=True)
     imageUrl = models.CharField(max_length=1000,
                             blank=True)
+    longitude = models.FloatField(verbose_name="longitude",
+                            null = True, blank = True)
+    latitude = models.FloatField(verbose_name="latitude",
+                            null = True, blank = True)
     #TODO change name
     monday = models.ManyToManyField(OpeningHour)
     dishes = models.ManyToManyField(Dish)
