@@ -13,8 +13,12 @@ class OpeningHourAdmin(admin.ModelAdmin):
 
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'imageUrl', 'description')
+    list_display = ('id', 'name', 'imageUrl', 'description', 'plat_commande')
 
 @admin.register(Command)
-class DishAdmin(admin.ModelAdmin):
+class CommandAdmin(admin.ModelAdmin):
     list_display = ('id', 'creation_date', 'delivery_date', 'name', 'user_tel')
+
+@admin.register(NumberDish)
+class NumberDishAdmin(admin.ModelAdmin):
+    list_display = ('plat_commande', 'nombre')
