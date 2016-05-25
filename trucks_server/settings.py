@@ -36,7 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'restaurants',
-    'corsheaders'
+    'registration',
+    'corsheaders',
+    'oauth2_provider'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -98,6 +100,12 @@ AUTH_PASSWORD_VALIDATORS = (
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 )
+
+REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+            )
+        }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
