@@ -4,29 +4,36 @@ import json
 from django.http import HttpResponse
 from django.http import JsonResponse
 from .model_restaurant import Restaurant, Dish
-from model_command import Command, NumberDish
+from .model_command import Command,NumberDish
+from datetime import datetime
 
 
 def generate_command(request):
     name = request.GET.get("name")
     delivery_date = request.GET.get("deliveryDate")
-    creation_date = request.GET.get("creationDate")
     user_tel = request.GET.get("userTel")
-    id_dish = request.GET.get("id")
-    if (len(Dish.objects.filter(id=id_dish)) == 0):
-        plat_cmd = None
-    else:
-        plat_cmd = NumberDish()
-        plat_cmd.plat_commande = Dish.objects.filter(id=id_dish)[0]
-        plat_cmd.nombre = request.GET.get("nbPlats")
-    if name is None or delivery_date is None or creation_date is None or user_tel is None  or plat_cmd is None:
+    dishes_ids = request.GET.getlist("dishId")
+    dishes_numbers = request.GET.getlist("dishNb")
+    restaurant_id = request.GET.get("restaurantId")
+    if name is None or delivery_date is None or user_tel is None  or restaurant_id is None or dishes_ids is None or dishes_numbers is None:
         response_data = {"error": "invalid request, missing params"}
         return JsonResponse(response_data)
 
-    #TODO use post
-    if request.method == "POST":
-        pass
-    command = Command(name=name, delivery_date=delivery_date, creation_date=creation_date, user_tel=user_tel, plat_commande=plat_cmd)
+    restaurant = Restaurant.objects.filter(id=restaurant_id)[0]
+
+    for dish_id in dishes_ids:
+        if (len(Dish.objects.filter(id=dish_id)) == 0):
+            response_data = {"error": "the dishes you have requested does not exist"}
+            return JsonResponse(response_data)
+
+    creation_date = datetime.now().isoformat()
+
+    command = Command(name=name, delivery_date=delivery_date, creation_date=creation_date, user_tel=user_tel, restaurant=restaurant)
     command.save()
+    for dish_id, dish_nb in zip(dishes_ids, dishes_numbers):
+        dish = Dish.objects.filter(id=dish_id)[0]
+        numberDish = NumberDish(plat_commande=dish, nombre=dish_nb)
+        numberDish.save()
+        command.dishes.add(numberDish)
     response_data = {"data": {"code": command.id}}
     return JsonResponse(response_data)
