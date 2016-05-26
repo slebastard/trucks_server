@@ -5,7 +5,7 @@ from .model_command import Command, NumberDish
 
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'description', 'tel', 'address', 'imageUrl')
+    list_display = ('id', 'name', 'description', 'tel', 'address', 'imageUrl', 'latitude', 'longitude')
 
 @admin.register(OpeningHour)
 class OpeningHourAdmin(admin.ModelAdmin):
@@ -13,7 +13,7 @@ class OpeningHourAdmin(admin.ModelAdmin):
 
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'imageUrl', 'description')
+    list_display = ('id', 'name', 'imageUrl', 'description', 'prix')
 
 @admin.register(Command)
 class CommandAdmin(admin.ModelAdmin):
