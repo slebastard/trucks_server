@@ -43,7 +43,8 @@ class Dish(models.Model):
             'id',
             'name',
             'imageUrl',
-            'description'
+            'description',
+            'prix'
         ]
 
         exp_dict = {field: self.serializable_value(field) for field in fields}
