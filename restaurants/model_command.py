@@ -11,9 +11,9 @@ class NumberDish(models.Model):
                             null=True)
 
 class Command(models.Model):
-    creation_date = models.CharField(max_length=25,
+    creation_date = models.CharField(max_length=30,
                             blank=True)
-    delivery_date = models.CharField(max_length=25,
+    delivery_date = models.CharField(max_length=30,
                             blank=True)
     name = models.CharField(max_length=40,
                             blank=True)
