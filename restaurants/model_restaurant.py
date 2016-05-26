@@ -75,7 +75,9 @@ class Restaurant(models.Model):
             'address',
             'tel',
             'description',
-            'imageUrl'
+            'imageUrl',
+            'latitude',
+            'longitude'
         ]
 
         exp_dict = {field: self.serializable_value(field) for field in fields}
